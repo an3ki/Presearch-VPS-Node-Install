@@ -1,10 +1,6 @@
 # Presearch
 Automatic Script to run a Presearch Node on Ubuntu 18.04, 20.04, 21.04*, 21.10*  x64
 
-*For Ubuntu 21.04, 21.10 x64 1 small extra step when you see this image 
-
-press tab then enter
-
 Please enter the following command in the terminal as a root user (Install may take up to 15 minutes)
 
 You will also need your node registration code which can be found here: https://nodes.presearch.org/dashboard
@@ -26,5 +22,6 @@ You can now go back to https://nodes.presearch.org/dashboard to stake the requir
 
 
 *For Ubuntu 21.04, 21.10 x64 1 small extra step when you see this image press tab then enter
+
 ![20](https://user-images.githubusercontent.com/4707851/140717268-ec91a57c-d9e7-4bf4-b753-41399cb5f428.png)
 	
