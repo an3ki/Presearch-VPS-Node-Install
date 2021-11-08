@@ -12,13 +12,13 @@ check_exit_status() {
 
     if [ $? -eq 0 ]
     then
-        echo -e ""
+        echo -e
         echo -e "Success"
-        echo -e ""
+        echo -e
     else
-        echo -e ""
+        echo -e
         echo -e "[ERROR] Process Failed!"
-        echo -e ""
+        echo -e
 		
         read -p "The last command exited with an error. Exit script? (yes/no) " answer
 
@@ -28,7 +28,6 @@ check_exit_status() {
         fi
     fi
 }
-
 greeting() {
 
     clear
@@ -72,12 +71,11 @@ housekeeping() {
       
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-    sudo updatedb;
-      
+
 	check_exit_status
 	
 	  
-	check_exit_status
+
 }
 
 Firewall() {
@@ -116,7 +114,7 @@ Firewall() {
 	  
 	check_exit_status
 	
-	cat << EOF > /etc/fail2ban/jail.local
+cat << EOF > /etc/fail2ban/jail.local
 [sshd]
 enabled = true
 port = 22
@@ -136,7 +134,7 @@ EOF
 	check_exit_status
 	}
 
-Docker () {
+docker () {
 
     clear
     echo -e "${CYAN}-------------------------------------"
@@ -226,7 +224,7 @@ greeting
 update
 housekeeping
 Firewall
-Docker
+docker
 leave
 gonode
 startnode	
