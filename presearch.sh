@@ -126,7 +126,7 @@ EOF
 	check_exit_status
 	}
 
-LightChain () {
+Presearch () {
 
     clear
     echo -e "${CYAN}-------------------------------------"
@@ -225,7 +225,7 @@ greeting
 update
 housekeeping
 Firewall
-LightChain
+Presearch
 leave
 gonode
 startnode
