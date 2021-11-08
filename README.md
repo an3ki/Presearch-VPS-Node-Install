@@ -5,7 +5,7 @@ Please enter the following command in the terminal as a root user (Install may t
 
 You will also need your node registration code which can be found here: https://nodes.presearch.org/dashboard
 
-	sudo wget https://raw.githubusercontent.com/an3ki/Presearch/master/presearch.sh
+	sudo wget https://raw.githubusercontent.com/an3ki/Presearch-VPS-Node-Install/master/presearch.sh
 
 	chmod +x presearch.sh
 
