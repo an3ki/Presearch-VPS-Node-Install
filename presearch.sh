@@ -160,7 +160,7 @@ Presearch () {
 	check_exit_status
 	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo apt-get install docker-ce docker-ce-cli containerd.io 
+	sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 	check_exit_status
 	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
