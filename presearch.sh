@@ -180,8 +180,6 @@ leave() {
     echo -e "- Please visit ${YELLOW}https://nodes.presearch.org/dashboard/ ${MAG}"
 	echo -e "- To register your node -"
 	echo -e " "
-	echo -e "- Your Node IP is:${YELLOW} $NODEIP ${MAG}"
-	echo -e "- Your Port is:   ${YELLOW} 10002 ${MAG}"
 	echo -e " "
 	echo -e " "
 	echo -e "-Please enter your vaildate string to continue ( example 5eb11dc9b3bd28f9487f18d8e8579d96 )-"
@@ -208,18 +206,18 @@ startnode() {
     echo -e "- -"
 	
 	echo -e "- Your Node IP is:${YELLOW} $NODEIP ${MAG}"
-	echo -e "- Your Port is:   ${YELLOW} 10002 ${MAG}"
+	echo -e "- "
 	echo -e " "
-	echo -e "- To start your node please enter the command: -${NC}"
-	echo -e "${YELLOW}screen -d -m ./startnode.sh ${NC}"
+	echo -e ""
 	echo -e " "
 	echo -e "${MAG}After this your node is complete and you may exit the terminal."
 	echo -e ""
-	echo -e "${MAG}To view your node working use the command:${YELLOW} screen -r${NC}"
+	echo -e "${MAG}To view your node working use the command:${YELLOW} sudo docker logs -f presearch-node${NC}"
 	echo -e ""
-	echo -e "${MAG}After you have finished looking at your working node"
+	echo -e "${MAG} You can check the status of your node at anytime using this command:${YELLOW} sudo docker ps${NC}"
+	echo -e "${MAG} For any other help please visit:${GREEN} https://docs.presearch.org/${NC}"
 	echo -e " "
-	echo -e "${MAG}Don't forget to press ${YELLOW}CTRL A ${MAG}then ${YELLOW}CTRL D ${MAG}beofore you exit terminal${NC}"
+	echo -e "${MAG}Don't forget to press ${YELLOW}CTRL C ${MAG}beofore you exit terminal${NC}"
 
 }
 
