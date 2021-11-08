@@ -146,29 +146,29 @@ Presearch () {
 	  
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg > /dev/null 2>&1;
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 		  
 	check_exit_status
    	 echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	echo \
 	"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-	$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null > /dev/null 2>&1;
+	$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
 	check_exit_status
 	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo apt-get update > 2>&1;
+	sudo apt-get update 
 	check_exit_status
 	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo apt-get install docker-ce docker-ce-cli containerd.io > 2>&1;
+	sudo apt-get install docker-ce docker-ce-cli containerd.io 
 	check_exit_status
 	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo docker run -d --name presearch-auto-updater --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock presearch/auto-updater --cleanup --interval 900 presearch-auto-updater presearch-node > 2>&1;
+	sudo docker run -d --name presearch-auto-updater --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock presearch/auto-updater --cleanup --interval 900 presearch-auto-updater presearch-node
 	check_exit_status
 	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo docker pull presearch/node > 2>&1;
+	sudo docker pull presearch/node
 	check_exit_status
 }
 
