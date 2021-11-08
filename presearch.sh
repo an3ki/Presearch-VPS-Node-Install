@@ -156,19 +156,19 @@ Presearch () {
 	check_exit_status
 	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo apt-get update > /dev/null 2>&1;
+	sudo apt-get update > 2>&1;
 	check_exit_status
 	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo apt-get install docker-ce docker-ce-cli containerd.io > /dev/null 2>&1;
+	sudo apt-get install docker-ce docker-ce-cli containerd.io > 2>&1;
 	check_exit_status
 	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo docker run -d --name presearch-auto-updater --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock presearch/auto-updater --cleanup --interval 900 presearch-auto-updater presearch-node > /dev/null 2>&1;
+	sudo docker run -d --name presearch-auto-updater --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock presearch/auto-updater --cleanup --interval 900 presearch-auto-updater presearch-node > 2>&1;
 	check_exit_status
 	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo docker pull presearch/node > /dev/null 2>&1;
+	sudo docker pull presearch/node > 2>&1;
 	check_exit_status
 }
 
