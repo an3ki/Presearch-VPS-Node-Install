@@ -1,4 +1,5 @@
-# Presearch
+# Presearch VPS Node Install Script
+
 Automatic Script to run a Presearch Node on Ubuntu 18.04, 20.04, 21.04*, 21.10*  x64
 
 Please enter the following command in the terminal as a root user (Install may take up to 15 minutes)
