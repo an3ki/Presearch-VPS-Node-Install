@@ -28,10 +28,11 @@ check_exit_status() {
         fi
     fi
 }
+
 greeting() {
 
     clear
-    echo -e ""
+    echo -e
     echo -e "${YELLOW}Hello, $USER. This script will install a Presearch Node.${NC}"
     echo -e ""
     read -n 1 -s -r -p "Press any key to continue....."
@@ -51,8 +52,9 @@ update() {
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
     sudo apt-get upgrade -y > /dev/null 2>&1;
       
+	
 	check_exit_status
-	}
+}
 
 housekeeping() {
 
@@ -69,7 +71,11 @@ housekeeping() {
     sudo apt-get autoclean -y > /dev/null 2>&1;
       
 	check_exit_status
-
+	echo -e "${GREEN}Loading......Please Wait.........${NC}"
+    	
+	sudo apt-get install unzip -y > /dev/null 2>&1;
+	  
+	check_exit_status
 }
 
 Firewall() {
@@ -83,16 +89,18 @@ Firewall() {
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get install ufw > /dev/null 2>&1;
 	  
-		  
+	
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo ufw default allow 8080 > /dev/null 2>&1;
+	sudo ufw default allow outgoing > /dev/null 2>&1;
 	  
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo ufw allow ssh > /dev/null 2>&1;
 	  
-	 
+	check_exit_status
+	sudo ufw allow 8080 > /dev/null 2>&1;
+	  
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	echo -e "y" | ufw enable > /dev/null 2>&1;
@@ -103,7 +111,7 @@ Firewall() {
 	  
 	check_exit_status
 	
-cat << EOF > /etc/fail2ban/jail.local
+	cat << EOF > /etc/fail2ban/jail.local
 [sshd]
 enabled = true
 port = 22
@@ -123,45 +131,55 @@ EOF
 	check_exit_status
 	}
 
-docker () {
+LightChain () {
 
     clear
     echo -e "${CYAN}-------------------------------------"
-    echo -e "- Now Installing Docker! -"
+    echo -e "- Now Installing Docker & Presearch Node! -"
     echo -e "-------------------------------------${NC}"
     
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo apt-get update > /dev/null 2>&1;
+	sudo apt-get install screen > /dev/null 2>&1;
 	
 	  
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	
+	sudo apt-get update > /dev/null 2>&1;
+	  
+	check_exit_status
+	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get install \
     ca-certificates \
     curl \
     gnupg \
-    lsb-release	> /dev/null 2>&1;
+    lsb-release > /dev/null 2>&1;
 	  
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg > /dev/null 2>&1;
-	  
+		  
 	check_exit_status
-	echo -e "${GREEN}Loading......Please Wait.........${NC}"
+    echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	echo \
 	"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
 	$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null > /dev/null 2>&1;
-	  
 	check_exit_status
-    echo -e "${GREEN}Loading......Please Wait.........${NC}"
+	
+	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get update > /dev/null 2>&1;
+	check_exit_status
+	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get install docker-ce docker-ce-cli containerd.io /dev/null 2>&1;
+	check_exit_status
+	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo docker run -d --name presearch-auto-updater --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock presearch/auto-updater --cleanup --interval 900 presearch-auto-updater presearch-node /dev/null 2>&1;
+	check_exit_status
+	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo docker pull presearch/node /dev/null 2>&1;
+	check_exit_status
 }
 
 leave() {
@@ -169,23 +187,29 @@ leave() {
     clear
     echo -e "${MAG}----------------------------------------------------------------------------------------------------------------------------"
     echo -e "- Installlation Partially Complete! -"
-    echo -e "- Please visit ${YELLOW}https://nodes.presearch.org/dashboard ${MAG}"
-	echo -e "- Please copy your unique node registration code from the website- "
-	echo -e "- 
+    echo -e "- Please visit ${YELLOW}https://nodes.presearch.org/dashboard/ ${MAG}"
+	echo -e "- To register your node -"
+	echo -e " "
 	echo -e "- Your Node IP is:${YELLOW} $NODEIP ${MAG}"
-	echo -e " "
-	echo -e "-Please enter your Node Registration code to continue ( example 5eb11dc9b3bd28f9487f18d8e8579d96 )-"
-	echo -e " "
+	echo -e "- Your Port is:   ${YELLOW} 10002 ${MAG}"
 	echo -e " "
 	echo -e " "
+	echo -e "-Please enter your vaildate string to continue ( example 5eb11dc9b3bd28f9487f18d8e8579d96 )-"
+	echo -e " "
+	echo -e " You can get the validate string from the website under the submit button for your node -"
+	echo -e " next to ( --validate ) -"
 	echo -e "-----------------------------------------------------------------------------------------------------------------------------"
-    echo -e "${CYAN}Please enter your node registration code:-   ${NC}"
+    echo -e "${CYAN}Please enter your Vaildate String:-   ${NC}"
     read -p "" VALIDATE
 }
 
 gonode() {
 
-	docker run -dt --name presearch-node --restart=unless-stopped -v presearch-node-storage:/app/node -e REGISTRATION_CODE=$VALIDATE presearch/node
+	sudo docker run -dt --name presearch-node --restart=unless-stopped -v presearch-node-storage:/app/node -e REGISTRATION_CODE=$VALIDATE presearch/node
+	  
+	check_exit_status
+
+
 }
 startnode() {
  clear
@@ -194,18 +218,18 @@ startnode() {
     echo -e "- -"
 	
 	echo -e "- Your Node IP is:${YELLOW} $NODEIP ${MAG}"
-	echo -e "- "
+	echo -e "- Your Port is:   ${YELLOW} 10002 ${MAG}"
 	echo -e " "
-	echo -e ""
+	echo -e "- To start your node please enter the command: -${NC}"
+	echo -e "${YELLOW}screen -d -m ./startnode.sh ${NC}"
 	echo -e " "
 	echo -e "${MAG}After this your node is complete and you may exit the terminal."
 	echo -e ""
-	echo -e "${MAG}To view your node working use the command:${YELLOW} sudo docker logs -f presearch-node${NC}"
+	echo -e "${MAG}To view your node working use the command:${YELLOW} screen -r${NC}"
 	echo -e ""
-	echo -e "${MAG} You can check the status of your node at anytime using this command:${YELLOW} sudo docker ps${NC}"
-	echo -e "${MAG} For any other help please visit:${GREEN} https://docs.presearch.org/${NC}"
+	echo -e "${MAG}After you have finished looking at your working node"
 	echo -e " "
-	echo -e "${MAG}Don't forget to press ${YELLOW}CTRL C ${MAG}beofore you exit terminal${NC}"
+	echo -e "${MAG}Don't forget to press ${YELLOW}CTRL A ${MAG}then ${YELLOW}CTRL D ${MAG}beofore you exit terminal${NC}"
 
 }
 
@@ -213,7 +237,7 @@ greeting
 update
 housekeeping
 Firewall
-docker
+LightChain
 leave
 gonode
 startnode	
