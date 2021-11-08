@@ -51,9 +51,8 @@ update() {
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
     sudo apt-get upgrade -y > /dev/null 2>&1;
       
-	     
 	check_exit_status
-}
+	}
 
 housekeeping() {
 
@@ -70,11 +69,6 @@ housekeeping() {
     sudo apt-get autoclean -y > /dev/null 2>&1;
       
 	check_exit_status
-	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-
-	check_exit_status
-	
-	  
 
 }
 
@@ -89,21 +83,16 @@ Firewall() {
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get install ufw > /dev/null 2>&1;
 	  
+		  
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo ufw default deny incoming > /dev/null 2>&1;
-	  
-	check_exit_status
-	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo ufw default allow outgoing > /dev/null 2>&1;
+	sudo ufw default allow 8080 > /dev/null 2>&1;
 	  
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo ufw allow ssh > /dev/null 2>&1;
 	  
-	check_exit_status
-	sudo ufw allow 8080 > /dev/null 2>&1;
-	  
+	 
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	echo -e "y" | ufw enable > /dev/null 2>&1;
