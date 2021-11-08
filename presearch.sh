@@ -181,13 +181,11 @@ leave() {
 	echo -e "- To register your node -"
 	echo -e " "
 	echo -e " "
+	echo -e "-Please enter your node registration code to continue ( example 5eb11dc9b3bd28f9487f18d8e8579d96 )-"
 	echo -e " "
-	echo -e "-Please enter your vaildate string to continue ( example 5eb11dc9b3bd28f9487f18d8e8579d96 )-"
-	echo -e " "
-	echo -e " You can get the validate string from the website under the submit button for your node -"
-	echo -e " next to ( --validate ) -"
+	echo -e " You can get your node registration code from the website under Node overview -"
 	echo -e "-----------------------------------------------------------------------------------------------------------------------------"
-    echo -e "${CYAN}Please enter your Vaildate String:-   ${NC}"
+    echo -e "${CYAN}Please enter your Node registration code:-   ${NC}"
     read -p "" VALIDATE
 }
 
@@ -201,11 +199,8 @@ gonode() {
 }
 startnode() {
  clear
-    echo -e "${MAG}----------------------------------------------------------------------------------------------------------------------------"
-    echo -e "- Installlation Complete! -"
-    echo -e "- -"
-	
-	echo -e "- Your Node IP is:${YELLOW} $NODEIP ${MAG}"
+   	echo -e "${MAG}----------------------------------------------------------------------------------------------------------------------------"
+   	echo -e "- Installlation Complete! -"
 	echo -e "- "
 	echo -e " "
 	echo -e ""
