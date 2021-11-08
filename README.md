@@ -8,7 +8,7 @@ You will also need your node registration code which can be found here: https://
 
 	sudo wget https://raw.githubusercontent.com/an3ki/Presearch/master/presearch.sh
 
-	chmod +x preearch.sh
+	chmod +x presearch.sh
 
 	source presearch.sh
 
