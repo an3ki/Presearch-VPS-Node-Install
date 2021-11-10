@@ -106,12 +106,12 @@ EOF
 	check_exit_status
 	echo -e "${GREEN}Adding Fail2Ban to start on reboot${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo systemctl start fail2ban;> /dev/null 2>&1;
+	sudo systemctl start fail2ban > /dev/null 2>&1;
 	  
 	check_exit_status
 	echo -e "${GREEN}Enabling Fail2Ban${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo systemctl enable fail2ban;> /dev/null 2>&1;
+	sudo systemctl enable fail2ban > /dev/null 2>&1;
 	  
 	check_exit_status
 	}
