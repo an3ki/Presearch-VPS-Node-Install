@@ -137,8 +137,8 @@ Presearch () {
 	  
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	$ sudo apt install docker.io -y
-		  
+	curl -fsSL https://get.docker.com -o get-docker.sh > /dev/null 2>&1;
+	sudo sh get-docker.sh > /dev/null 2>&1;	  
 	check_exit_status
    		
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
