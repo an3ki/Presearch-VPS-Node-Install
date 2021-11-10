@@ -129,7 +129,17 @@ Presearch () {
 	check_exit_status
 	echo -e "${GREEN}Removing previous version of Docker${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo apt-get remove docker docker-engine docker.io > /dev/null 2>&1;
+	
+	pkgToRemoveListFull="docker docker-engine docker.io"
+	pkgToRemoveList=""
+	for pkgToRemove in $(echo $pkgToRemoveListFull); do
+  	$(dpkg --status $pkgToRemove &> /dev/null)
+  	if [[ $? -eq 0 ]]; then
+    	pkgToRemoveList="$pkgToRemoveList $pkgToRemove"
+  	fi
+	done
+	sudo apt-get --yes --purge remove $pkgToRemoveList
+	
 	check_exit_status
 	echo -e "${GREEN}Installing Docker Dependencies${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
