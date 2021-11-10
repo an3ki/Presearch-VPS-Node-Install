@@ -84,7 +84,7 @@ Firewall() {
     echo -e ""
 
 	
-	echo -e "${GREENG}etting latest version of Fail2Ban${NC}"
+	echo -e "${GREEN}Getting latest version of Fail2Ban${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get install -y fail2ban > /dev/null 2>&1;
 	  
@@ -109,7 +109,7 @@ EOF
 	sudo systemctl start fail2ban;> /dev/null 2>&1;
 	  
 	check_exit_status
-	echo -e "${GREENEnabling Fail2Ban${NC}"
+	echo -e "${GREEN}Enabling Fail2Ban${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo systemctl enable fail2ban;> /dev/null 2>&1;
 	  
