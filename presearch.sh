@@ -82,7 +82,7 @@ Firewall() {
     echo -e ""
 
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo apt-get install iptables-persistent -y > /dev/null 2>&1;
+	sudo apt-get install iptables-persistent -y 
 	sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT > /dev/null 2>&1;
 	sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT > /dev/null 2>&1;
 	  
@@ -90,8 +90,8 @@ Firewall() {
 	check_exit_status
 	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo iptables-save > /etc/iptables/rules.v4 > /dev/null 2>&1;
-	
+	sudo iptables-save > /etc/iptables/rules.v4 
+		
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get install -y fail2ban > /dev/null 2>&1;
