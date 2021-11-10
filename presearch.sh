@@ -139,10 +139,7 @@ Presearch () {
 	$ sudo apt install docker.io -y > /dev/null 2>&1;
 		  
 	check_exit_status
-   	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo snap install docker > /dev/null 2>&1;
-	check_exit_status
-		
+   		
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo docker run -d --name presearch-auto-updater --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock presearch/auto-updater --cleanup --interval 900 presearch-auto-updater presearch-node
 	check_exit_status
