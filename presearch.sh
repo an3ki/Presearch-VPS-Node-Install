@@ -52,7 +52,7 @@ update() {
 	check_exit_status
 	echo -e "${GREEN}Installing new updates:${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-    sudo apt-get upgrade -y > /dev/null 2>&1;
+    	sudo apt-get upgrade -y  
       
 	
 	check_exit_status
