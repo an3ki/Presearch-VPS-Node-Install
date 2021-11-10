@@ -117,6 +117,8 @@ Presearch () {
     
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get update > /dev/null 2>&1;
+	check_exit_status
+	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get remove docker docker-engine docker.io > /dev/null 2>&1;
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
