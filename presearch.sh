@@ -45,10 +45,12 @@ update() {
     echo -e "- Updating the System! -"
     echo -e "------------------------${NC}"
     echo -e ""
+	echo -e "${GREEN}Checking for updates:${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
     sudo apt-get update > /dev/null 2>&1;
       
 	check_exit_status
+	echo -e "${GREEN}Installing new updates:${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
     sudo apt-get upgrade -y > /dev/null 2>&1;
       
@@ -82,10 +84,14 @@ Firewall() {
     echo -e ""
 
 	
+	echo -e "${GREENG}etting latest version of Fail2Ban${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get install -y fail2ban > /dev/null 2>&1;
 	  
 	check_exit_status
+	
+	echo -e "${GREEN}Setting up default settings${NC}"
+	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	
 	cat << EOF > /etc/fail2ban/jail.local
 [sshd]
@@ -98,10 +104,12 @@ findtime = 60
 EOF
 	  
 	check_exit_status
+	echo -e "${GREEN}Adding Fail2Ban to start on reboot${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo systemctl start fail2ban;> /dev/null 2>&1;
 	  
 	check_exit_status
+	echo -e "${GREENEnabling Fail2Ban${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo systemctl enable fail2ban;> /dev/null 2>&1;
 	  
@@ -115,12 +123,15 @@ Presearch () {
     echo -e "- Now Installing Docker & Presearch Node! -"
     echo -e "-------------------------------------${NC}"
     
+	echo -e "${GREEN}Getting latest updates${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get update > /dev/null 2>&1;
 	check_exit_status
+	echo -e "${GREEN}Removing previous version of Docker${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get remove docker docker-engine docker.io > /dev/null 2>&1;
 	check_exit_status
+	echo -e "${GREEN}Installing Docker Dependencies${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get install \
     	ca-certificates \
@@ -129,15 +140,22 @@ Presearch () {
     	lsb-release > /dev/null 2>&1;
 	  
 	check_exit_status
+	echo -e "${GREEN}Downloading Latest version of Docker${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	curl -fsSL https://get.docker.com -o get-docker.sh > /dev/null 2>&1;
+	check_exit_status
+	
+	echo -e "${GREEN}Installing Docker${NC}"
+	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo sh get-docker.sh  
 	check_exit_status
    		
+	echo -e "${GREEN}Installing PreSearch Auto Updater${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo docker run -d --name presearch-auto-updater --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock presearch/auto-updater --cleanup --interval 900 presearch-auto-updater presearch-node
 	check_exit_status
 	
+	echo -e "${GREEN}Downloading Latest PreSearch Node${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo docker pull presearch/node
 	check_exit_status
