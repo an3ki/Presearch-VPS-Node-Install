@@ -125,18 +125,18 @@ Presearch () {
     
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get update > /dev/null 2>&1;
-	sudo apt-get remove docker docker-engine docker.io > /dev/null 2>&1;
+	sudo apt-get remove docker docker-engine docker.io
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get install \
     	ca-certificates \
     	curl \
     	gnupg \
-    	lsb-release > /dev/null 2>&1;
+    	lsb-release 
 	  
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	$ sudo apt install docker.io -y > /dev/null 2>&1;
+	$ sudo apt install docker.io -y
 		  
 	check_exit_status
    		
