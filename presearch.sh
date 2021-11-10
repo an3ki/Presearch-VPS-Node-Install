@@ -138,7 +138,7 @@ Presearch () {
     	pkgToRemoveList="$pkgToRemoveList $pkgToRemove"
   	fi
 	done
-	sudo apt-get --yes --purge remove $pkgToRemoveList
+	sudo apt-get --yes --purge remove $pkgToRemoveList > /dev/null 2>&1;
 	
 	check_exit_status
 	echo -e "${GREEN}Installing Docker Dependencies${NC}"
@@ -157,17 +157,17 @@ Presearch () {
 	
 	echo -e "${GREEN}Installing Docker${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo sh get-docker.sh  
+	sudo sh get-docker.sh  > /dev/null 2>&1;
 	check_exit_status
    		
 	echo -e "${GREEN}Installing PreSearch Auto Updater${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo docker run -d --name presearch-auto-updater --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock presearch/auto-updater --cleanup --interval 900 presearch-auto-updater presearch-node
+	sudo docker run -d --name presearch-auto-updater --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock presearch/auto-updater --cleanup --interval 900 presearch-auto-updater presearch-node > /dev/null 2>&1;
 	check_exit_status
 	
 	echo -e "${GREEN}Downloading Latest PreSearch Node${NC}"
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo docker pull presearch/node
+	sudo docker pull presearch/node > /dev/null 2>&1;
 	check_exit_status
 }
 
