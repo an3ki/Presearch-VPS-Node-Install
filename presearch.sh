@@ -82,24 +82,15 @@ Firewall() {
     echo -e ""
 
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo apt-get install ufw > /dev/null 2>&1;
+	sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT > /dev/null 2>&1;
+	sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT > /dev/null 2>&1;
 	  
 	
 	check_exit_status
+	
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo ufw default allow outgoing > /dev/null 2>&1;
-	  
-	check_exit_status
-	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo ufw allow ssh > /dev/null 2>&1;
-	  
-	check_exit_status
-	sudo ufw allow 8080 > /dev/null 2>&1;
-	  
-	check_exit_status
-	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	echo -e "y" | ufw enable > /dev/null 2>&1;
-	  
+	sudo netfilter-persistent save > /dev/null 2>&1;
+	sudo netfilter-persistent reload > /dev/null 2>&1;
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get install -y fail2ban > /dev/null 2>&1;
@@ -111,7 +102,6 @@ Firewall() {
 enabled = true
 port = 22
 filter = sshd
-logpath = /var/log/auth.log
 maxretry = 3
 EOF
 	  
@@ -135,7 +125,7 @@ Presearch () {
     
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get update > /dev/null 2>&1;
-	  
+	sudo apt-get remove docker docker-engine docker.io > /dev/null 2>&1;
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get install \
@@ -146,23 +136,13 @@ Presearch () {
 	  
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg > /dev/null 2>&1;
+	$ sudo apt install docker.io -y > /dev/null 2>&1;
 		  
 	check_exit_status
-   	 echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	echo \
-	"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-	$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null 2>&1;
+   	echo -e "${GREEN}Loading......Please Wait.........${NC}"
+	sudo snap install docker > /dev/null 2>&1;
 	check_exit_status
-	
-	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo apt-get update > /dev/null 2>&1;
-	check_exit_status
-	
-	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo apt-get install docker-ce docker-ce-cli containerd.io -y
-	check_exit_status
-	
+		
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo docker run -d --name presearch-auto-updater --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock presearch/auto-updater --cleanup --interval 900 presearch-auto-updater presearch-node
 	check_exit_status
