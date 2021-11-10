@@ -77,22 +77,11 @@ Firewall() {
 
 	clear
     echo -e "${CYAN}-----------------------------------------"
-    echo -e "- Now Installing Firewall and Fail2Ban! -"
+    echo -e "- Now Installing Fail2Ban! -"
     echo -e "-----------------------------------------${NC}"
     echo -e ""
 
-	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo apt-get install iptables-persistent -y 
-	sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT > /dev/null 2>&1;
-	sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT > /dev/null 2>&1;
-	  
 	
-	check_exit_status
-	
-	echo -e "${GREEN}Loading......Please Wait.........${NC}"
-	sudo iptables-save > /etc/iptables/rules.v4 
-		
-	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get install -y fail2ban > /dev/null 2>&1;
 	  
@@ -103,7 +92,9 @@ Firewall() {
 enabled = true
 port = 22
 filter = sshd
-maxretry = 3
+maxretry = 5
+bantime  = 86400
+findtime = 60
 EOF
 	  
 	check_exit_status
@@ -126,19 +117,19 @@ Presearch () {
     
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get update > /dev/null 2>&1;
-	sudo apt-get remove docker docker-engine docker.io
+	sudo apt-get remove docker docker-engine docker.io > /dev/null 2>&1;
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	sudo apt-get install \
     	ca-certificates \
     	curl \
     	gnupg \
-    	lsb-release 
+    	lsb-release > /dev/null 2>&1;
 	  
 	check_exit_status
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
 	curl -fsSL https://get.docker.com -o get-docker.sh > /dev/null 2>&1;
-	sudo sh get-docker.sh > /dev/null 2>&1;	  
+	sudo sh get-docker.sh  
 	check_exit_status
    		
 	echo -e "${GREEN}Loading......Please Wait.........${NC}"
